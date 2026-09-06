@@ -10,7 +10,7 @@
 
 This is a frontend prototype of the **1Fi Marketplace** built as an SDE internship assignment. It simulates a premium fintech/e-commerce experience inside the 1Fi Shop ecosystem — allowing users to browse tech products, view detailed specs, configure storage/color variants, calculate EMI plans, and manage a shopping cart.
 
-> **Note:** This is an independent prototype created for an internship assignment and is **not** the official 1Fi application. It uses mock product data and is designed for a real backend to be connected later.
+> **Note:** This is an independent prototype created for an internship assignment and is **not** the official 1Fi application. It uses a robust set of 100 mock products (10 across 10 major brands) and is designed for a real backend to be connected later.
 
 ---
 
@@ -152,7 +152,10 @@ The `vercel.json` file includes SPA rewrites so that direct navigation to routes
 | Responsive (mobile/tablet/desktop)   | ✅ Complete |
 | React + Vite + Tailwind + Router     | ✅ Complete |
 | No backend required                  | ✅ Complete |
-| Mock product data (12 products)      | ✅ Complete |
+| Mock product data (100 products)     | ✅ Complete |
+| Product Loading Skeletons            | ✅ Complete |
+| Image Fallback System (3-tier)       | ✅ Complete |
+| EMI Application CTA Modal            | ✅ Complete |
 
 ---
 

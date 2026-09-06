@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Star, ShieldCheck, Truck, Shield } from 'lucide-react';
+import { ArrowLeft, Star, ShieldCheck, Truck, Shield, CheckCircle, X } from 'lucide-react';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 import Header from '../components/layout/Header';
@@ -19,6 +19,7 @@ export default function ProductDetails() {
   const [selectedVariant, setSelectedVariant] = useState(product?.variants?.[0]);
   const [selectedColor, setSelectedColor] = useState(product?.colors?.[0]);
   const [selectedTenure, setSelectedTenure] = useState(12);
+  const [showEmiModal, setShowEmiModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,7 +48,7 @@ export default function ProductDetails() {
   };
 
   const handleApplyEmi = () => {
-    alert(`Prototype Action: Initiating 1Fi EMI application for ${product.name} at ${formatCurrency(activeVariant.price)} over ${selectedTenure} months.`);
+    setShowEmiModal(true);
   };
 
   const discount = product.originalPrice 
@@ -55,9 +56,55 @@ export default function ProductDetails() {
     : 0;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 pb-24 md:pb-10">
+    <div className="min-h-screen flex flex-col bg-gray-50 pb-24 md:pb-10 relative">
       <Header />
       
+      {showEmiModal && (
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div className="p-6 text-center">
+              <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">EMI Plan Selected</h3>
+              <p className="text-gray-600 mb-6 text-sm">
+                You have selected a <span className="font-bold text-gray-900">{selectedTenure}-month EMI plan</span> for the <span className="font-medium text-gray-900">{product.name}</span>. 
+              </p>
+              
+              <div className="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-500 text-sm">Monthly EMI</span>
+                  <span className="font-bold text-1fi-blue text-lg">{formatCurrency(Math.round(activeVariant.price / selectedTenure))}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500 text-sm">Interest Rate</span>
+                  <span className="font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded text-xs border border-green-100">0% (Prototype)</span>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => setShowEmiModal(false)}
+                  className="flex-1 py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl transition-colors"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={() => {
+                    setShowEmiModal(false);
+                    // In a real app, this would redirect to checkout
+                    handleAddToCart();
+                  }}
+                  className="flex-1 py-3 px-4 btn-primary font-bold shadow-lg shadow-blue-500/20"
+                >
+                  Proceed
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-6 sm:py-8">
         <button 
           onClick={() => navigate(-1)}
@@ -183,9 +230,9 @@ export default function ProductDetails() {
                 </button>
                 <button 
                   onClick={handleApplyEmi}
-                  className="flex-1 bg-gray-900 text-white rounded-lg font-bold hover:bg-gray-800 transition-all py-4 text-base hover:-translate-y-0.5 shadow-lg shadow-gray-900/20"
+                  className="flex-1 bg-gray-900 text-white rounded-lg font-bold hover:bg-gray-800 transition-all py-4 text-base hover:-translate-y-0.5 shadow-lg shadow-gray-900/20 flex items-center justify-center gap-2"
                 >
-                  Apply for EMI
+                  Proceed with {selectedTenure}-month EMI
                 </button>
               </div>
 
@@ -263,3 +310,4 @@ export default function ProductDetails() {
     </div>
   );
 }
+

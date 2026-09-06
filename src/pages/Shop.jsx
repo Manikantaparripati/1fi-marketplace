@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, SlidersHorizontal, ChevronDown, Store, BadgePercent, X } from 'lucide-react';
 import { products, CATEGORIES, BRANDS } from '../data/products';
 import Header from '../components/layout/Header';
@@ -9,12 +9,22 @@ import FilterPanel from '../components/shop/FilterPanel';
 export default function Shop() {
   const [activeTab, setActiveTab] = useState('1fi-marketplace');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
     category: '',
     brand: '',
     search: '',
     sort: 'popular'
   });
+
+  // Simulate network loading
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [filters, activeTab]);
 
   const categoryCounts = useMemo(() => {
     const counts = {};
@@ -243,7 +253,24 @@ export default function Shop() {
               )}
 
               {/* Product Grid: 4 Desktop, 3 Tablet, 2 Mobile */}
-              {filteredProducts.length === 0 ? (
+              {isLoading ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
+                  {[...Array(8)].map((_, i) => (
+                    <div key={i} className="card bg-white h-full animate-pulse flex flex-col">
+                      <div className="aspect-square w-full bg-gray-200" />
+                      <div className="p-4 sm:p-5 flex flex-col flex-1">
+                        <div className="h-3 bg-gray-200 rounded w-1/3 mb-4" />
+                        <div className="h-4 bg-gray-200 rounded w-full mb-2" />
+                        <div className="h-4 bg-gray-200 rounded w-2/3 mb-4" />
+                        <div className="mt-auto">
+                          <div className="h-6 bg-gray-200 rounded w-1/2 mb-4" />
+                          <div className="h-10 bg-gray-200 rounded w-full" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : filteredProducts.length === 0 ? (
                 <div className="py-24 text-center bg-white rounded-2xl border border-gray-100 shadow-sm">
                   <Search className="mx-auto h-12 w-12 text-gray-300 mb-4" />
                   <h3 className="text-lg font-bold text-gray-900 mb-2">No products found</h3>
