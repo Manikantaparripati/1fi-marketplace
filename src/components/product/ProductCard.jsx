@@ -2,10 +2,11 @@ import React from 'react';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { formatCurrency, calculateEMI } from '../../utils/emi';
+import ProductImage from './ProductImage';
 
 export default function ProductCard({ product }) {
-  const lowestPrice = Math.min(...product.variants.map(v => v.price));
-  const discount = Math.round(((product.originalPrice - lowestPrice) / product.originalPrice) * 100);
+  const lowestPrice = product.price || (product.variants && product.variants.length > 0 ? Math.min(...product.variants.map(v => v.price)) : product.originalPrice);
+  const discount = product.discount !== undefined ? product.discount : Math.round(((product.originalPrice - lowestPrice) / product.originalPrice) * 100);
   const emiAmount = calculateEMI(lowestPrice, 12); // Default 12 months
 
   return (
@@ -16,9 +17,10 @@ export default function ProductCard({ product }) {
         </div>
       )}
       <div className="aspect-square w-full bg-gray-50 overflow-hidden relative p-6 flex items-center justify-center border-b border-gray-100">
-        <img 
+        <ProductImage 
           src={product.image} 
           alt={product.name} 
+          brand={product.brand}
           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
       </div>

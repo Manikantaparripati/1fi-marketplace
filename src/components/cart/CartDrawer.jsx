@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { X, Minus, Plus, ShoppingBag } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { formatCurrency, calculateEMI } from '../../utils/emi';
+import ProductImage from '../product/ProductImage';
 
 export default function CartDrawer() {
   const { isCartOpen, setIsCartOpen, cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
@@ -59,8 +60,13 @@ export default function CartDrawer() {
           ) : (
             cart.map((item) => (
               <div key={`${item.product.id}-${item.variant.id}`} className="flex gap-4 p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-24 h-24 bg-gray-50 rounded-xl flex-shrink-0 overflow-hidden border border-gray-100 p-2">
-                  <img src={item.product.image} alt={item.product.name} className="w-full h-full object-contain mix-blend-multiply" />
+                <div className="w-24 h-24 bg-gray-50 rounded-xl flex-shrink-0 overflow-hidden border border-gray-100 p-2 flex items-center justify-center">
+                  <ProductImage 
+                    src={item.product.image} 
+                    alt={item.product.name} 
+                    brand={item.product.brand}
+                    className="w-full h-full object-contain" 
+                  />
                 </div>
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
