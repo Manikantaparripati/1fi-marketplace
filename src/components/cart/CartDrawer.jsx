@@ -65,6 +65,7 @@ export default function CartDrawer() {
                     src={item.product.image} 
                     alt={item.product.name} 
                     brand={item.product.brand}
+                    category={item.product.category}
                     className="w-full h-full object-contain" 
                   />
                 </div>

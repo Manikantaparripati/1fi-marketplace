@@ -80,6 +80,7 @@ export default function ProductDetails() {
                   src={product.image} 
                   alt={product.name} 
                   brand={product.brand}
+                  category={product.category}
                   className="absolute inset-0 w-full h-full object-contain"
                 />
               </div>

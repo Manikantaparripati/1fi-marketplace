@@ -21,6 +21,7 @@ export default function ProductCard({ product }) {
           src={product.image} 
           alt={product.name} 
           brand={product.brand}
+          category={product.category}
           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
       </div>
