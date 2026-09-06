@@ -4,7 +4,7 @@
 [https://1fi-marketplace-hazel.vercel.app](https://1fi-marketplace-hazel.vercel.app)
 
 ## GitHub
-[https://github.com/gayatriparripati/1fi-marketplace](https://github.com/gayatriparripati/1fi-marketplace)
+[https://github.com/Manikantaparripati/1fi-marketplace](https://github.com/Manikantaparripati/1fi-marketplace)
 
 ## Overview
 
