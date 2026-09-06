@@ -1,80 +1,169 @@
 # 1Fi Marketplace
 
-## Overview
-This is a frontend prototype of the "1Fi Marketplace" built as an SDE internship assignment. It simulates a premium fintech/e-commerce experience within the 1Fi Shop ecosystem, allowing users to browse products, view details, and calculate EMI options. 
+## Live Demo
+[https://1fi-marketplace-hazel.vercel.app](https://1fi-marketplace-hazel.vercel.app)
 
-**Note:** This is an independent prototype created for an internship assignment and is not the official 1Fi application.
+## GitHub
+[https://github.com/gayatriparripati/1fi-marketplace](https://github.com/gayatriparripati/1fi-marketplace)
+
+## Overview
+
+This is a frontend prototype of the **1Fi Marketplace** built as an SDE internship assignment. It simulates a premium fintech/e-commerce experience inside the 1Fi Shop ecosystem — allowing users to browse tech products, view detailed specs, configure storage/color variants, calculate EMI plans, and manage a shopping cart.
+
+> **Note:** This is an independent prototype created for an internship assignment and is **not** the official 1Fi application. It uses mock product data and is designed for a real backend to be connected later.
+
+---
 
 ## Features
-- **Responsive Design:** Mobile-first layout that scales perfectly across tablets and desktops.
-- **Product Listing:** View products with key details including lowest EMI price.
-- **Advanced Filtering & Sorting:** Filter by category, brand, search by text, and sort by price/popularity.
-- **Product Details:** Rich product information, variants, color selection, and specifications.
-- **EMI Calculator:** Interactive EMI tenure selection with real-time (prototype 0% interest) monthly breakdown.
-- **Cart System:** Fully functional slide-out cart drawer to manage selected items and calculate totals.
-- **Clean UI/UX:** Built with Tailwind CSS following modern, premium fintech design principles (rounded cards, soft shadows, clear visual hierarchy).
+
+- **1Fi Shop** with three tabs — Top Brands, Nearby Stores, and 1Fi Marketplace
+- **Product Listing** — responsive 2/3/4 column grid with product cards
+- **Live Search** — filter products by name, brand, or category in real-time
+- **Category & Brand Filters** — sidebar on desktop, slide-over drawer on mobile
+- **Sorting** — by Popularity, Price (Low to High), Price (High to Low)
+- **Product Details Page** — full-page view with image, rating, reviews, specs
+- **Product Variants** — interactive storage and color variant selection
+- **EMI Calculator** — select 3/6/9/12/18/24 month tenures with live monthly EMI calculation (0% interest prototype)
+- **Cart System** — slide-out cart drawer with quantity controls, item removal, and total price
+- **Responsive Design** — mobile-first; works on mobile, tablet, and desktop
+- **SPA Routing** — direct navigation to `/product/:id` returns 200 via Vercel rewrites
+
+---
 
 ## Tech Stack
-- React 18
-- Vite
-- Tailwind CSS
-- React Router DOM
-- Lucide React (Icons)
-- Context API (State Management)
+
+| Technology       | Purpose                                |
+|-----------------|----------------------------------------|
+| React 18        | Component-based UI framework           |
+| Vite            | Build tool and dev server              |
+| Tailwind CSS    | Utility-first responsive styling       |
+| React Router v6 | Client-side routing                    |
+| Lucide React    | Consistent icon system                 |
+| Context API     | Global cart state management           |
+| JavaScript (ES6+)| Application logic                     |
+
+---
 
 ## Project Structure
+
 ```
-src/
-  components/
-    cart/       # CartDrawer
-    emi/        # EmiCalculator
-    layout/     # Header
-    product/    # ProductCard
-    shop/       # CategoryTabs, FilterPanel
-  context/      # CartContext
-  data/         # Mock product data
-  pages/        # Shop, ProductDetails
-  utils/        # EMI calculations, Currency formatting
-  App.jsx       # Root component and Routing
-  main.jsx      # Entry point
+1fi-marketplace/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── cart/
+│   │   │   └── CartDrawer.jsx
+│   │   ├── emi/
+│   │   │   └── EmiCalculator.jsx
+│   │   ├── layout/
+│   │   │   └── Header.jsx
+│   │   ├── product/
+│   │   │   └── ProductCard.jsx
+│   │   └── shop/
+│   │       ├── CategoryTabs.jsx
+│   │       └── FilterPanel.jsx
+│   ├── context/
+│   │   └── CartContext.jsx
+│   ├── data/
+│   │   └── products.js
+│   ├── pages/
+│   │   ├── Shop.jsx
+│   │   └── ProductDetails.jsx
+│   ├── utils/
+│   │   └── emi.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── .gitignore
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
+├── vercel.json
+└── README.md
 ```
 
+---
+
 ## Installation
-Clone the repository and install dependencies:
 
 ```bash
 npm install
 ```
 
 Start the development server:
+
 ```bash
 npm run dev
 ```
 
-## Build
-To create a production build:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## Production Build
+
 ```bash
 npm run build
 ```
 
-## Deployment
-This project can be easily deployed to Vercel or Netlify.
-1. Push the code to a GitHub repository.
-2. Link the repository to your Vercel/Netlify dashboard.
-3. The platform will automatically detect Vite and configure the build settings (Build command: `npm run build`, Output directory: `dist`).
+This generates the optimized `/dist` folder.
 
-## Assignment Requirements Met
-- ✅ Created the "1Fi Marketplace" tab alongside "Top Brands" and "Nearby Stores".
-- ✅ Built a clean, mobile-first, fintech/e-commerce UI using React and Tailwind.
-- ✅ Implemented mock product data with variants.
-- ✅ Added a functional EMI calculator showing monthly breakdowns.
-- ✅ Implemented functional Search, Filtering, and Sorting.
-- ✅ Created a functional Cart for the prototype.
-- ✅ Structured the code cleanly into reusable components.
+---
+
+## Deployment
+
+This project is deployed on **Vercel**.
+
+The `vercel.json` file includes SPA rewrites so that direct navigation to routes like `/product/1` returns `index.html` instead of a 404:
+
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+**To deploy your own instance:**
+1. Fork this repository on GitHub.
+2. Go to [vercel.com](https://vercel.com) → New Project → Import from GitHub.
+3. Vercel auto-detects Vite. Click **Deploy**.
+
+---
+
+## Assignment Requirements
+
+| Requirement                          | Status      |
+|--------------------------------------|-------------|
+| Shop page with 3 tabs                | ✅ Complete |
+| Top Brands / Nearby Stores (blank)   | ✅ Complete |
+| 1Fi Marketplace fully implemented    | ✅ Complete |
+| Product listing with cards           | ✅ Complete |
+| Product image, name, price, discount | ✅ Complete |
+| EMI amount and duration on cards     | ✅ Complete |
+| Product details page                 | ✅ Complete |
+| Variant and color selection          | ✅ Complete |
+| EMI calculator (3–24 months)         | ✅ Complete |
+| Search (by name, brand, category)    | ✅ Complete |
+| Category and brand filters           | ✅ Complete |
+| Sort by price and popularity         | ✅ Complete |
+| Cart with quantity controls          | ✅ Complete |
+| Responsive (mobile/tablet/desktop)   | ✅ Complete |
+| React + Vite + Tailwind + Router     | ✅ Complete |
+| No backend required                  | ✅ Complete |
+| Mock product data (12 products)      | ✅ Complete |
+
+---
 
 ## Future Improvements
-- **Backend Integration:** Connect to a real REST/GraphQL API for product data.
-- **Real EMI APIs:** Integrate with bank APIs or payment gateways for live interest rates and processing fees.
-- **Authentication:** Add login/signup flows for personalized cart and order tracking.
-- **Payments Integration:** Add Stripe/Razorpay for actual checkout processing.
-- **Performance:** Add image lazy loading and pagination for large product catalogs.
+
+- **Backend API** — Replace mock JSON data with a real product API (REST/GraphQL)
+- **Authentication** — User login/signup flow with JWT or OAuth
+- **Real EMI Integration** — Connect to bank APIs for live interest rates and eligibility checks
+- **Payments** — Integrate Razorpay/Stripe for actual checkout processing
+- **Order Tracking** — Post-checkout order status and history
+- **Wishlist** — Save products for later
+- **Product Reviews** — User-submitted ratings and comments
+- **Image Optimization** — CDN-based image delivery with lazy loading
+- **Pagination/Infinite Scroll** — For large product catalogs
